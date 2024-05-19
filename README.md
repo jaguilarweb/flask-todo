@@ -128,4 +128,39 @@ def hello():
     return render_template('hello.html', user_ip=user_ip)
 ```
 
+## Estructuras de control en Jinja2
+
+Las estructuras de control nos permiten controlar el flujo de nuestra aplicación.
+Ejemplo de su uso con if/else:
+
+```html
+{% if user_ip %}
+<h1>Hello navegador, tu IP es {{user_ip}}</h1>
+{% else %}
+<a href="{{ url_for('index') }}">Ir a inicio</a>
+{% endif %}
+```
+
+## Ciclos en Jinja 2
+Los ciclos nos permiten iterar sobre una lista de elementos.
+Para ello creamos una lista en el archivo app.py. que luego enviaremos a la plantilla.
+
+```python
+todos = ['Tarea 1', 'Tarea 2', 'Tarea 3']
+@app.route('/hello')
+def hello():
+    user_ip = request.cookies.get('user_ip')
+
+    return render_template('hello.html', user_ip=user_ip, todos=todos)
+```
+
+Para evitar enviar tantos parametros al template, utilizamos el contexto.
+Contexto es:
+- Un diccionario de datos que se envía a la plantilla.
+  
+  ```python
+  return render_template('hello.html', **context)
+  ```
+
+Con esta forma de enviar el contexto evitamos, además, el tener que utilizar la forma context.atributo en la plantilla.
 
