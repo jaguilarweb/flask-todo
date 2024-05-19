@@ -1,14 +1,22 @@
-from flask import Flask, jsonify
+from flask import Flask, request, make_response, redirect
 
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-    return 'Hello World Flask again!'
+def index():
+    user_ip = request.remote_addr
+    response = make_response(redirect('/hello'))
+    response.set_cookie('user_ip', user_ip)
 
-@app.route('/test')
-def otro():
-    return jsonify({"response": "Flask test"})
+    return response
+
+
+@app.route('/hello')
+def hello():    
+    user_ip = request.cookies.get('user_ip')
+    
+    return 'Hello Navegador!, tu IP es {}'.format(user_ip)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
