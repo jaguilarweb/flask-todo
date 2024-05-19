@@ -164,3 +164,63 @@ Contexto es:
 
 Con esta forma de enviar el contexto evitamos, además, el tener que utilizar la forma context.atributo en la plantilla.
 
+## Heredar templates
+
+Heredar templates, extender templeates o incluir templates en otros templates, es una funcionalidad muy útil porque:
+- Nos permite reutilizar código.
+- Nos permite tener una estructura de archivos más organizada.
+- Nos permite tener un código más limpio.
+- Nos permite tener un código más legible.
+- Nos permite tener un código más mantenible.
+
+Para heredar un template, debemos crear un archivo base.html que contenga la estructura base de nuestra aplicación. Y es este el que extendemos en los otros templates.
+
+base.html
+```html
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Flask app | {% endblock %}</title>
+  </head>
+  <body>
+    {% block content %}
+    {% endblock %}
+  </body>
+  </html>
+```
+
+hello.html
+```html
+{% extends 'base.html' %}
+{% block title %}
+  {{ super() }}
+  Bienvenido 
+{% endblock %}
+
+{% block content %}
+  {% if user_ip %}
+    <h1>Hello navegador, tu IP es {{user_ip}}</h1>
+  {% else %}
+    <a href="{{ url_for('index') }}">Ir a inicio</a>
+  {% endif %}
+    <ul>
+      {% for todo in todos %}
+        <li>{{todo}}</li>
+      {% endfor %}
+    </ul>
+{% endblock %}
+```
+Luego utilizamos las macros:
+- Macros: Son bloques de código que se pueden reutilizar en diferentes partes de la aplicación.
+- Para crear una macro, utilizamos la palabra clave **macro**.
+- Para utilizar una macro, utilizamos la palabra clave **import**.
+- Creamos un archivo macros.html
+- Declaramos la macro en el inicio del archivo seguido del nombre, el cual en este caso recibirá un parámetro todo. Luego declaramos donde termina el macro.
+
+```html
+{% macro render_todo(todo) %}
+  <li>{{todo}}</li>
+{% endmacro %}
+```
