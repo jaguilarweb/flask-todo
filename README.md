@@ -101,5 +101,31 @@ def ip():
 	return "Tu ip es {}".format(user_ip)
 ```
 
-## Templates
+## Templates con Jinja 2
+
+Los templates son archivos HTML que permiten renderizar la información de una manera más amigable para el usuario.
+Flask tiene un sistema de templates que permite renderizar los templates de manera sencilla.
+Para usar los templates:
+
+- Primero debemos crear un directorio llamado **templates** en la raíz de nuestro proyecto.
+- Dentro de este directorio, creamos un archivo llamado **hello.html**.
+- Luego, en nuestro archivo **app.py**, importamos el objeto **render_template** de flask.
+- Finalmente, en nuestra ruta **/hello**, retornamos el template **hello.html**.
+
+```python
+from flask import Flask, request, make_response, redirect, render_template
+app = Flask(__name__)
+@app.route('/')
+def index():
+    user_ip = request.remote_addr
+    response = make_response(redirect('/hello'))
+    response.set_cookie('user_ip', user_ip)
+    return response
+
+@app.route('/hello')
+def hello():
+    user_ip = request.cookies.get('user_ip')
+    return render_template('hello.html', user_ip=user_ip)
+```
+
 
