@@ -224,3 +224,23 @@ Luego utilizamos las macros:
   <li>{{todo}}</li>
 {% endmacro %}
 ```
+
+## Incluir archivos estáticos
+
+Para incluir archivos estáticos, como CSS, JS, imágenes, etc., debemos crear un directorio llamado **static** en la raíz de nuestro proyecto.
+
+Luego, dentro de este directorio, creamos un directorio por tipo de archivo, css, imagenes, etc. 
+
+Finalmente, en nuestro archivo HTML, incluimos los archivos estáticos con la función **url_for**.
+
+```html
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+```
+
+En el caso de las imágenes, las referenciamos:
+
+```html
+<img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+```
+
+
