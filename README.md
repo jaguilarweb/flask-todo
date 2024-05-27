@@ -89,7 +89,7 @@ def hello():
 En esta nueva ruta, obtenemos la IP del usuario de la cookie y la mostramos en la respuesta.
 
 ### Consideraciones de seguridad
-Este codigo es vulnerable a XSS. Una ves que la cookie user_ip es guardada en el browser, el usuario es capaz de modificarla y ejecutar lo que guste.
+Este codigo es vulnerable a XSS. Una vez que la cookie user_ip es guardada en el browser, el usuario es capaz de modificarla y ejecutar lo que guste.
 
 Para evitar esto, puede ser útil importar escape de flask, y hacer lo siguiente:
 

@@ -158,3 +158,9 @@ docker run -it --publish 5000:5000 flask-app
 ```bash
 docker run -d -p 5000:5000 flask-app
 ```
+
+Si ya está construido podemos usar:
+
+```bash
+docker start id-contendedor
+```
