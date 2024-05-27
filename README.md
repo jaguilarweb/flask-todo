@@ -243,4 +243,14 @@ En el caso de las imágenes, las referenciamos:
 <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
 ```
 
+## Páginas de error
 
+Para manejar errores en Flask, debemos crear una función que maneje el error y retornar un template con el error.
+
+Desde el archivo principal:
+
+```python
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html', error=error), 404
+```
