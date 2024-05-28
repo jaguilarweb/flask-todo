@@ -264,4 +264,71 @@ Para utilizar Bootstrap debemos incluir la librería en el archivo requirements.
   pip install -r requirements.txt
   ```
 
-Ahora podemos hacer uso de boostrap en la aplicación:
+Ahora podemos hacer uso de boostrap en la aplicación, así que lo agregamos:
+
+```html
+{% extends 'bootstrap/base.html' %}
+```
+
+Considerando que la plantilla de flask contiene bloques pre definidos [Bloques](https://pythonhosted.org/Flask-Bootstrap/basic-usage.html#templates) vamos a aprovechar esos recursos para reconfigurar nuestra plantilla base y así eliminar los elementos html innecesarios ya que se encuentran incluidos en los bloques de flask. Ejm: html, head, body, etc.
+
+
+## Definir tipo de ambiente
+Para definir el tipo de ambiente en el que se ejecutará nuestra aplicación, debemos crear una variable de entorno $FLASK_ENV.
+
+Si definimos un ambiente de desarrollo la variable tomará el siguiente valor:
+  
+  ```bash
+  export FLASK_ENV=development
+  ```
+
+Para el caso de estar usando Docker, definimos la variable en el Dockerfile:
+  
+    ```Dockerfile
+    ENV FLASK_ENV=development
+    ```
+
+## Session en flask
+Para manejar sesiones en flask, lo primero que debemos hacer es crear una llave secreta.
+Para ello, utilizamos una propiedad del objeto 'app' llamada ´config´. Y es un diccionario que tiene llaves y valores. Una de esas llaves se llama `SECRET_KEY`.
+  
+  ```python
+  app.config['SECRET_KEY'] = 'String_secreta'
+  ```
+
+Ahora podemos usar session para obtener información que antes pbteníamos de la cookie, pero en forma más segura porque encripta la información:
+
+```python
+@app.route('/')
+def index():
+    user_ip = request.remote_addr
+    session['user_ip'] = user_ip
+    return redirect(url_for('hello'))
+```
+  
+  ```python
+@app.route('/hello')
+def hello():
+    user_ip = session.get('user_ip')
+    return render_template('hello.html', user_ip=user_ip, todos=todos)
+```
+Esto nos permitirá ver en el inspector del navegador, en la sección aplicación la siguiente información:
+-----------------------------------------------------------------------------
+|  Nombre   |       Valor       | Dominio  | Path | Expires | Tamaño | Http |
+|-----------|-------------------|----------|------|---------|--------|------|
+| session   | eyJ1c2VyX2lwIjoi  | 0.0.0.0  |  /   | Sesión  |  77    |  ✓   |
+|           | MTkyLjE2OC42NS4xI |          |      |         |        |      |
+|           | n0.ZlYpZw.7E-27c5 |          |      |         |        |      |
+|           | lfN2RfsxjajRa0Hoz |          |      |         |        |      |
+|           | b3s               |          |      |         |        |      |
+
+
+
+### Objetos de flask
+
+- request: Información sobre la petición que realiza el browser
+- session: Storage que permanece entre cada request
+- g: Objeto que se usa para almacenar información temporal durante el ciclo de vida de la aplicación. Storage temporal, se reinicia en cada request.
+- current_app: Punto de acceso al objeto de la aplicación actual. Información sobre la aplicación actual.
+
+

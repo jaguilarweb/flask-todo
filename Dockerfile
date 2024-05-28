@@ -13,6 +13,9 @@ RUN pip3 --no-cache-dir install -r requirements.txt
 ENV FLASK_APP=app.py
 ENV FLASK_DEBUG=1
 
+# Para ambientes de desarrollo descomentar
+#ENV FLASK_ENV=development
+
 EXPOSE 5000
 
 ENTRYPOINT ["flask", "run", "--host=0.0.0.0", "--port=5000", "--reload"]
