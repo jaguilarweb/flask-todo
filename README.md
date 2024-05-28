@@ -254,3 +254,14 @@ Desde el archivo principal:
 def not_found(error):
     return render_template('404.html', error=error), 404
 ```
+
+## Bootstrap
+
+Bootstrap es un framework de diseño que nos permite crear aplicaciones web de manera rápida y sencilla.
+Para utilizar Bootstrap debemos incluir la librería en el archivo requirements.txt y luego ejecutar en la consola:
+  
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+Ahora podemos hacer uso de boostrap en la aplicación:

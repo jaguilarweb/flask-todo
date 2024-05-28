@@ -1,6 +1,9 @@
 from flask import Flask, request, make_response, redirect, render_template
+from flask_bootstrap import Bootstrap # type: ignore
+
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
 
 todos = [
         'Comprar café',
