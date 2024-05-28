@@ -332,3 +332,40 @@ Esto nos permitirá ver en el inspector del navegador, en la sección aplicació
 - current_app: Punto de acceso al objeto de la aplicación actual. Información sobre la aplicación actual.
 
 
+## Formularios (Formas)
+Flask tiene un objeto llamado `form` que nos permite crear formularios en la web
+Para ello debemos importar `FlaskForm` de `flask_wtf` y `StringField`, `SubmitField` de `wtforms`.
+
+```python
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+```
+
+Ahora podemos crear un formulario con el siguiente código:
+  
+  ```python
+class TodoForm(FlaskForm):
+    todo = StringField('Todo')
+    submit = SubmitField('Enviar')
+  ```
+
+Para renderizarlo lo enviamos en el contexto desde la ruta '/' a hello.html.
+Y en ese archivo renderizamos:
+
+```html
+  <div class="container">
+    <form action="{{ url_for('hello') }}" method="post">
+      {{ loginForm.username }}
+      {{ loginForm.username.label }}
+    </form>
+```
+
+Para aprovechar los estilos, también podemos hacer uso de un quick_form.
+Quick_form: 
+- Es una macro que nos permite renderizar un formulario de manera rápida.
+  
+  ```html
+    <div class="container">
+      {{ quick_form(loginForm) }}
+    </div>
+  ```
