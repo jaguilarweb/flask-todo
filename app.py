@@ -3,6 +3,7 @@ from flask_bootstrap import Bootstrap # type: ignore
 from flask_wtf import FlaskForm # type: ignore
 from wtforms.fields import StringField, SubmitField # type: ignore
 from wtforms.validators import DataRequired # type: ignore
+import unittest 
 
 
 app = Flask(__name__)
@@ -20,6 +21,11 @@ class LoginForm(FlaskForm):
     username = StringField('Nombre de usuario', validators=[DataRequired()])
     password = StringField('Contraseña', validators=[DataRequired()])
     submit = SubmitField('Enviar')
+
+@app.cli.command()
+def test():
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner().run(tests)
 
 
 @app.errorhandler(404)

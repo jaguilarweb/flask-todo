@@ -416,3 +416,71 @@ Y en la ruta, agregamos un mensaje de error.
           return redirect(url_for('hello'))
       return render_template('hello.html', user_ip=user_ip, todos=todos, form=todo_form)
   ```
+
+Para mostrar el mensaje de error en la plantilla, debemos agregar el siguiente código:
+  
+  ```html
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  ```
+
+  ## flask-testing
+  Para realizar pruebas en flask, debemos instalar la librería `flask-testing`.
+  
+  ```bash
+  pip install flask-testing
+  ```
+  Recordar que otra forma de instalar estas dependecias es incluirlas directamente en el archivo requirements.tx y luego correr:
+    
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+Ahora podemos utilizar las clases.
+Vamos a crear un comando para correr las pruebas.
+Para lo anterior, vamos al archivo principal y escribimos el siguiente código:
+
+```python
+@app.cli.command()
+def test():
+    import unittest
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner().run(tests)
+```
+
+Ahora creamos un directorio llamado `tests` en la raíz de nuestro proyecto.
+
+Dentro de este directorio, creamos un archivo llamado `test_basics.py`.
+
+En este archivo, importamos `unittest` y `TestCase` de `flask_testing`.
+
+```python
+import unittest
+from flask_testing import TestCase
+```
+
+Ahora creamos una clase llamada `TestBasics` que hereda de `TestCase`.
+
+```python
+class TestBasics(TestCase):
+    def create_app(self):
+        app.config['TESTING'] = True
+        return app
+
+    def test_index(self):
+        response = self.client.get(url_for('index'))
+        self.assert_200(response)
+```
+
+Para correr las pruebas, ejecutamos el siguiente comando en la consola:
+
+```bash
+flask test
+```
