@@ -369,3 +369,50 @@ Quick_form:
       {{ quick_form(loginForm) }}
     </div>
   ```
+
+## Validación de formularios
+Para validar formularios en flask, debemos importar `DataRequired` de `wtforms.validators`.
+
+```python
+from wtforms.validators import DataRequired
+```
+
+Ahora podemos agregar validaciones a los campos del formulario.
+
+```python
+class TodoForm(FlaskForm):
+    todo = StringField('Todo', validators=[DataRequired()])
+    submit = SubmitField('Enviar')
+```
+
+## Agregar metodo post
+
+Para agregar un método post a una ruta, debemos importar `request` de `flask`.
+
+```python
+from flask import request
+```
+Y en la ruta, debemos agregar el método post.
+  
+  ```python
+  @app.route('/', methods=['GET', 'POST'])
+  ```
+
+## Mensajes de error
+Para agregar mensajes de error, debemos importar `flash` de `flask`.
+  
+  ```python
+  from flask import flash
+  ```
+Y en la ruta, agregamos un mensaje de error.
+  
+  ```python
+  @app.route('/', methods=['GET', 'POST'])
+  def index():
+      user_ip = request.remote_addr
+      todo_form = TodoForm()
+      if todo_form.validate_on_submit():
+          flash('La tarea se ha agregado con éxito')
+          return redirect(url_for('hello'))
+      return render_template('hello.html', user_ip=user_ip, todos=todos, form=todo_form)
+  ```
