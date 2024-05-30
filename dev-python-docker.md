@@ -1,7 +1,7 @@
 # Docker con Flask
 
 
-Para continuar el curso, y ya construido el contenedor usar los siguientes comandos para seguir usando el mismo contenedor:
+Para continuar el curso, y ya construido el contenedor, usar los siguientes comandos para seguir usando el mismo contenedor:
 
 ```bash
 source venv/bin/activate
@@ -18,7 +18,6 @@ Luego para finalizar:
 **********************************************
 
 Para construir la imagen y contenedor.
-
 
 El original es con fastapi, pero adaptamos para Flask
 La practica está en Projects/Platzi/docker/ flask-python-dev

@@ -1,8 +1,9 @@
 # Flask en Docker
 
 Esta es una práctica para incorporar Flask en Docker.
-SOLO PARA DESPLIEGUE
-No permite usar como desarrollo.
+SOLO PARA DESARROLLO
+
+NO usar para producción.
 
 ## Requisitos
 
@@ -16,10 +17,11 @@ No permite usar como desarrollo.
 pip3 install virtualenv
 ```
 
-Fuente: https://www.youtube.com/watch?v=YENw-bNHZwg
+Para la siguiente implementación se usaron los siguientes video tutoriales de referencia:
 
-Referencia 1: https://www.youtube.com/watch?v=YENw-bNHZwg
-Referencia 2: https://www.youtube.com/watch?v=BvvH3ohis6E
+[Fuente](https://www.youtube.com/watch?v=YENw-bNHZwg) |
+
+[Referencia 2] (https://www.youtube.com/watch?v=BvvH3ohis6E)
 
 
 ## Instrucciones
@@ -29,7 +31,7 @@ Referencia 2: https://www.youtube.com/watch?v=BvvH3ohis6E
 ```bash
 virtualenv venv
 ```
-Donde venv es el nombre que le doy y es personalizable.
+Donde venv es el nombre que le doy al entorno virtual y es personalizable.
 
 2. Activar el entorno virtual
 
@@ -43,36 +45,37 @@ Puedo desactivar el entorno con:
   deactivate
   ```
 
-  Considerar que el entorno queda creado como una carpeta de librerías en el directorio raiz del proyecto, en forma local. Es por ello que los comandos deben ser corridos en los directorios raíz.
+  Considerar que el entorno queda creado como una carpeta de librerías en el directorio raiz del proyecto, en forma local. Es por ello que los comandos deben ser corridos en los directorios raíz del proyecto.
 
-  Cuando el ambiente virtual está activado, puedo ver en la terminal el promp así:
-  
-    ```bash
-    (venv) $
-    ```
-
-3. Instalar Flask
+  Cuando el ambiente virtual está activado, puedo ver en la terminal el prompt así:
   
   ```bash
-    pip3 install flask
+  (venv) $
   ```
+
+3. Instalar Flask (utilizar uno de los dos comandos)
+  
+```bash
+  pip install flask
+  pip3 install flask
+```
 
 4. Crear el archivo app.py
 
-    ```python
-    from flask import Flask, jsonify
+```python
+  from flask import Flask, jsonify
 
-    app = Flask(__name__)
+  app = Flask(__name__)
 
-    @app.route('/', methods=['GET'])
-    def ping():
-      return jsonify({"response": "hello world!"})
+  @app.route('/', methods=['GET'])
+  def ping():
+    return jsonify({"response": "hello world!"})
 
-    if __name__ == '__main__':
-      app.run(host="0.0.0.0", port=5000, debug=True)
-  ```
+  if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=5000, debug=True)
+```
+
 Mantener el puerto como 5000 ya que genera problemas cuando se cambia el valor del puerto.
-
 
 5. Probar ejecutar la aplicación
 
@@ -84,7 +87,7 @@ python3 src/app.py
 
 6. Crear el archivo Dockerfile
 
-Para crearlo, vamos a considerar instalar una versión de linux llamada alphine. Así como en otras distribuciones tiene un gestor de packetes "apk" que es equivalente al "apt-get" de otras distribuciones linux.
+Para crearlo, vamos a considerar instalar una versión de linux llamada alphine. Así como en otras distribuciones, tiene un gestor de packetes "apk" que es equivalente al "apt-get" de otras distribuciones linux.
 
 - Creamos los sistemas que necesitamos:
 
@@ -112,7 +115,7 @@ COPY . /app
 
 - Ahora necesitamos los requisitos de la aplicación. Para lo anterior creamos un archivo llamado requirement.
 
-Podemos usar el comando:
+Podemos usar el comando si hemos estado instalando librerias desde la consola y aún no hemos creado el archivo txt:
 ```bash
 pip freeze > requirements.txt
 ```
@@ -139,7 +142,7 @@ EXPOSE 5000
 CMD ["python3", "src/app.py"]
 ```
 
-7. Constuimos nuevamente la imagen
+7. Construimos nuevamente la imagen
 
 ```bash
 docker build -t flask-app .
@@ -153,7 +156,7 @@ docker build -t flask-app .
 docker run -it --publish 5000:5000 flask-app
 ```
 
-- En forma de proceso (bakground)
+- En forma de proceso (background)
 
 ```bash
 docker run -d -p 5000:5000 flask-app

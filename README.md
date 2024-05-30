@@ -1,11 +1,18 @@
 # Curso Flask
 
+Este proyecto se construye con base a notas del Curso de Flask. Este curso recorre los fundamentos del micro-framework Flask para Python. Al final del mismo se crea un proyecto TODO LIST, con un CRUD, usando extensiones como WTF, Bootstrap y Blueprints.
+
+Nota personal: También aprovecho este curso para practicar el uso y configuración de contenedores Docker para crear mi ambiente de desarrollo; el uso de Git para prácticar comandos de esta herramienta de versionamiento y subir un repositorio remoto a Github; flask_testing para realizar pruebas unitarias y el uso de pip como manejador de dependencias de Python.
+
+Plataforma: Platzi 
+
+## ¿Qué es Flask?
+
 Este es un framework minimalista escrito en python es flexible es lo mas simple.
 No tiene arquitectura especifica y tiene un ORM.
 
 Flask extension, librerías de flask que extienden su funcionalidad.
 Usa el ninja template.
-
 
 ## Configuración del entorno
 
@@ -278,15 +285,15 @@ Para definir el tipo de ambiente en el que se ejecutará nuestra aplicación, de
 
 Si definimos un ambiente de desarrollo la variable tomará el siguiente valor:
   
-  ```bash
+```bash
   export FLASK_ENV=development
-  ```
+```
 
 Para el caso de estar usando Docker, definimos la variable en el Dockerfile:
   
-    ```Dockerfile
-    ENV FLASK_ENV=development
-    ```
+```Dockerfile
+  ENV FLASK_ENV=development
+```
 
 ## Session en flask
 Para manejar sesiones en flask, lo primero que debemos hacer es crear una llave secreta.
@@ -321,7 +328,6 @@ Esto nos permitirá ver en el inspector del navegador, en la sección aplicació
 |           | n0.ZlYpZw.7E-27c5 |          |      |         |        |      |
 |           | lfN2RfsxjajRa0Hoz |          |      |         |        |      |
 |           | b3s               |          |      |         |        |      |
-
 
 
 ### Objetos de flask
